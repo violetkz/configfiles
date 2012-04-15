@@ -1,0 +1,162 @@
+
+the configuration of fop
+========================
+
+
+install asciidoc and fop
+------------------------
+
+- install some softwares
+run command:
+----
+$ emerge asciidoc fop source-highlight
+----
+
+configuration of fop for outputing chinese pdf
+----------------------------------------------
+use the TTFReader to make font metrics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+use the TTFReader to make font metrics.
+(see: http://xmlgraphics.apache.org/fop/0.95/fonts.html[setup fop font])
+
+- about TTFReader
+----
+[quote, apache.org] 
+FOP includes PFMReader, which reads the PFM file that normally 
+comes with a Type 1 font, and generates an appropriate font 
+metrics file for it. To use it, run the class 
+org.apache.fop.fonts.apps.PFMReader:
+
+Windows:
+
+java -cp build\fop.jar;lib\avalon-framework.jar;\
+         lib\commons-logging.jar;lib\commons-io.jar \
+      org.apache.fop.fonts.apps.PFMReader [options] pfm-file xml-file
+
+Unix:
+
+java -cp build/fop.jar:lib/avalon-framework.jar:\
+         lib/commons-logging.jar:lib/commons-io.jar
+        org.apache.fop.fonts.apps.PFMReader [options] pfm-file xml-file
+----
+
+In my enviorment, use it easily by a shell.(save the following as a shell)
+----
+#!/bin/sh
+
+java -cp /usr/share/fop/lib/fop.jar:\
+/usr/share/avalon-framework-4.2/lib/avalon-framework.jar:\
+/usr/share/commons-logging/lib/commons-logging.jar:\
+/usr/share/commons-io-1/lib/commons-io.jar:\
+/usr/share/xmlgraphics-commons-1.3/lib/xmlgraphics-commons.jar\
+ org.apache.fop.fonts.apps.TTFReader $*
+----
+
+- make font metrics
+----
+$ ./TTFReader -ttcname SimSum /usr/share/fonts/MS_fonts/simsun.ttc ./simsun.xml
+$ ./TTFReader /usr/share/fonts/MS_fonts/msyh.ttf ./msyh.xml
+$ ...(make others fonts metrics)
+----
+
+- register Fonts with FOP
+  make a the file named 'fop.xconf' look like listed. [see: fop.xconf]
+----
+
+<fonts>
+<!-- embedded fonts -->
+    <font metrics-url="/etc/fop/simsun.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/MS_fonts/simsun.ttc">
+    <font-triplet name="SimSun" style="normal" weight="normal"/>
+    <font-triplet name="SimSun" style="normal" weight="bold"/>
+    <font-triplet name="SimSun" style="italic" weight="normal"/>
+    <font-triplet name="SimSun" style="italic" weight="bold"/>
+</font> 
+<font metrics-url="/etc/fop/simhei.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/MS_fonts/simhei.ttf">
+    <font-triplet name="SimHei" style="normal" weight="normal"/>
+    <font-triplet name="SimHei" style="normal" weight="bold"/>
+    <font-triplet name="SimHei" style="italic" weight="normal"/>
+    <font-triplet name="SimHei" style="italic" weight="bold"/>
+    </font> 
+<font metrics-url="/etc/fop/wqy-zenhei.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/wqy-zenhei/wqy-zenhei.ttc">
+    <font-triplet name="WenQuanYi Zen Hei" style="normal" weight="normal"/>
+    <font-triplet name="WenQuanYi Zen Hei" style="normal" weight="bold"/>
+    <font-triplet name="WenQuanYi Zen Hei" style="italic" weight="normal"/>
+    <font-triplet name="WenQuanYi Zen Hei" style="italic" weight="bold"/>
+</font> 
+<font metrics-url="/etc/fop/wqy-zenhei-mono.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/wqy-zenhei/wqy-zenhei.ttc">
+    <font-triplet name="WenQuanYi Zen Hei Mono" style="normal" weight="normal"/>
+    <font-triplet name="WenQuanYi Zen Hei Mono" style="normal" weight="bold"/>
+    <font-triplet name="WenQuanYi Zen Hei Mono" style="italic" weight="normal"/>
+    <font-triplet name="WenQuanYi Zen Hei Mono" style="italic" weight="bold"/>
+</font> 
+<font metrics-url="/etc/fop/msyh.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/MS_fonts/msyh.ttf">
+    <font-triplet name="Microsoft YaHei" style="normal" weight="normal"/>
+    <font-triplet name="Microsoft YaHei" style="normal" weight="bold"/>
+    <font-triplet name="Microsoft YaHei" style="italic" weight="normal"/>
+    <font-triplet name="Microsoft YaHei" style="italic" weight="bold"/>
+</font> 
+<font metrics-url="/etc/fop/wqy-microhei.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/wqy-microhei/wqy-microhei.ttc">
+    <font-triplet name="WenQuanYi Micro Hei" style="normal" weight="normal"/>
+    <font-triplet name="WenQuanYi Micro Hei" style="normal" weight="bold"/>
+    <font-triplet name="WenQuanYi Micro Hei" style="italic" weight="normal"/>
+    <font-triplet name="WenQuanYi Micro Hei" style="italic" weight="bold"/>
+</font> 
+<font metrics-url="/etc/fop/wqy-microhei-mono.xml" kerning="yes" 
+                    embed-url="/usr/share/fonts/wqy-microhei/wqy-microhei.ttc">
+    <font-triplet name="WenQuanYi Micro Hei Mono" style="normal" weight="normal"/>
+    <font-triplet name="WenQuanYi Micro Hei Mono" style="normal" weight="bold"/>
+    <font-triplet name="WenQuanYi Micro Hei Mono" style="italic" weight="normal"/>
+    <font-triplet name="WenQuanYi Micro Hei Mono" style="italic" weight="bold"/>
+</font> 
+</fonts>
+----
+
+Configure the style sheet 
+-------------------------
+- see fop.xsl file.
+----
+
+<?xml version='1.0'?>
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:fo="http://www.w3.org/1999/XSL/Format">
+
+<xsl:import href="/usr/share/asciidoc/docbook-xsl/fo.xsl"/>
+<xsl:param name="paper.type" select="'A4'"/>
+<!--<xsl:param name="l10n.gentext.language" select="'zh_cn'"/>-->
+
+<xsl:param name="body.font.family">
+	Microsoft YaHei,
+	WenQuanYi Zen Hei,
+	SimSun,Courier
+	</xsl:param>
+<xsl:param name="monospace.font.family">
+	Microsoft YaHei,
+	Courier,
+	WenQuanYi Zen Hei Mono
+	</xsl:param>
+<xsl:param name="title.font.family">
+	WenQuanYi Micro Hei Mono,
+	Courier,
+	SimHei
+</xsl:param>
+
+</xsl:stylesheet> 
+
+----
+
+Use it
+------
+- set option `--xsl-file` and `--fop-opts`, if it contain chinese character.
+----
+$ a2x -f pdf --xsl-file=/etc/fop/fop.xsl \
+                        --fop --fop-opts="-c /etc/fop/fop.xconf" <asciidoc file>
+----
+
