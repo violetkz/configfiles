@@ -1,0 +1,29 @@
+
+export XIM="SCIM"
+export XMODIFIERS=@im=SCIM 
+export GTK_IM_MODULE=scim 
+export QT_IM_MODULE=scim 
+export XIM_PROGRAM="scim -d"
+exec $XIM_PROGRAM &
+
+
+eval `cat ~/.fehbg` &
+
+LOG_PREFIX_sTR="(`date`) $HOME/.xinitrc."
+logger "$LOG_PREFIX_sTR param1:[$1]" 
+
+conky 2>/dev/null 2>&1 &
+case $1 in
+	[Ff]luxbox)
+		exec startfluxbox
+	;;
+    [Gg]nome)
+        exec gnome-session
+    ;;
+	*)
+        #export XSESSION="fluxbox"
+        logger "$LOG_PREFIX_sTR startfluxbox."
+		exec startfluxbox >> $HOME/log
+	;;
+esac
+

@@ -1,0 +1,54 @@
+####
+
+
+!URxvt.background:black
+URxvt.background:#EBF1F5
+!URxvt.foreground:#BBCCDD
+URxvt.foreground:black
+!URxvt.background:grey
+!URxvt.foreground:Green
+!URxvt.colorBD:yellow
+URxvt.colorBD:blue
+URxvt.colorUL:Green
+URxvt.color0: #000000
+URxvt.color1: #CC0000
+URxvt.color2: #4E9A06
+URxvt.color3: #C4A000
+URxvt.color4: #3465A4
+URxvt.color5: #75507B
+URxvt.color6: #06989A
+URxvt.color7: #D3D7CF
+URxvt.color8: #555753
+URxvt.color9: #EF2929
+URxvt.color10: #8AE234
+URxvt.color11: #FCE94F
+URxvt.color12: #729FCF
+URxvt.color13: #AD7FA8
+URxvt.color14: #34E2E2
+URxvt.color15: #EEEEEC
+
+URxvt.urlLauncher:firefox
+!URxvt.matcher.button:1
+!URxvt.perl-ext-common:default,tabbed
+!URxvt.tabbed.tab-fg:12
+!URxvt.tabbed.tab-bg:0
+!URxvt.tabbed.tabber:4
+
+Rxvt.multichar_encoding:utf-8
+URxvt.scrollBar_right:True
+URxvt.saveLines:5000
+
+
+URxvt.inputMethod:SCIM
+!Rxvt.font:xft:Microsoft Yahei:pixelsize=12
+!URxvt.font:xft:Microsoft Yahei:pixelsize=12
+!URxvt.font:xft:Lucida Console:pixelsize=12:antialias=false
+URxvt.font:xft:Lucida Console:pixelsize=13:antialias=true
+!urxvt.boldfont:xft:wenquanyi micro hei mono:pixelsize=14:antialias=false:bold,xft:wenquanyi micro hei:pixelsize=14:bold
+!urxvt.boldfont:xft:lucida console:pixelsize=14:antialias=false:bold,xft:microsoft yahei:pixelsize=14:bold
+!rxvt.font:xft:wenquanyi micro hei mono:antialias=false:pixelsize=14
+!urxvt.font:xft:wenquanyi micro hei mono:antialias=false:pixelsize=14
+!rxvt.boldfont:xft:wenquanyi micro hei mono:pixelsize=14:antialias=false:bol!d
+!urxvt.boldfont:xft:wenquanyi micro hei mono:pixelsize=14:antialias=false:bold
+Urxvt.menu:/etc/x11/rxvt.menu
+Urxvt.preeditType:Root
