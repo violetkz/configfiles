@@ -151,3 +151,12 @@ Configure the style sheet
 </xsl:stylesheet> 
 
 ----
+
+Use it
+------
+- set option `--xsl-file` and `--fop-opts`, if it contain chinese character.
+----
+$ a2x -f pdf --xsl-file=/etc/fop/fop.xsl \
+                        --fop --fop-opts="-c /etc/fop/fop.xconf" <asciidoc file>
+----
+

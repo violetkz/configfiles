@@ -898,11 +898,28 @@ see fop.xsl file.
 </div></div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_use_it">Use it</h2>
+<div class="sectionbody">
+<div class="ulist"><ul>
+<li>
+<p>
+set option <tt>--xsl-file</tt> and <tt>--fop-opts</tt>, if it contain chinese character.
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content">
+<pre><tt>$ a2x -f pdf --xsl-file=/etc/fop/fop.xsl \
+                        --fop --fop-opts="-c /etc/fop/fop.xconf" &lt;asciidoc file&gt;</tt></pre>
+</div></div>
+</div>
+</div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2012-04-15 19:33:28 CST
+Last updated 2012-04-15 22:49:50 CST
 </div>
 </div>
 </body>
