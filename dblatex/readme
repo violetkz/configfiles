@@ -1,0 +1,11 @@
+
+asciidoc using dblatex 
+=====================
+
+CYGWIN
+-----
+
+1. install texlive and xetex macro package, asciidoc, fc-list
+2. run `$ ./a2x_ch.sh asciidoc.txt` to make PDF files
+
+

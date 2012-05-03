@@ -160,3 +160,7 @@ $ a2x -f pdf --xsl-file=/etc/fop/fop.xsl \
                         --fop --fop-opts="-c /etc/fop/fop.xconf" <asciidoc file>
 ----
 
+useful link
+-----------
+1. http://dram.me/blog/2011/03/09/export-chinese-pdf-from-asciidoc.html
+2. http://du1abadd.org/2008/bin/asciidoc-pdf-fop-%E4%B8%AD%E6%96%87.html
