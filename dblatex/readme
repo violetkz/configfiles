@@ -5,7 +5,11 @@ asciidoc using dblatex
 CYGWIN
 -----
 
-1. install texlive and xetex macro package, asciidoc, fc-list
+1. install
+* texlive and xetex macro package, texlive-font-collection
+* asciidoc, 
+* fc-list
+* docbook 
 2. run `$ ./a2x_ch.sh asciidoc.txt` to make PDF files
 
 
