@@ -46,8 +46,13 @@ set langmenu=en_gb.utf-8
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese
 
-set dir=/tmp 
-set backupdir=/tmp 
+if has("win32")             "set swapfile and backupfile directory. the more to 
+    set dir=C:\\temp//      "set ':h dir' or ':h E303'
+    set backupdir=C:\\temp//        
+else
+    set dir=/tmp 
+    set backupdir=/tmp 
+endif
 
 set ambiwidth=double
 set history=400             "Sets how many lines of history VIM har to remember
