@@ -3,11 +3,13 @@ Configuration Collection
 ========================
 
 
-vim
----
-the vim configuration.
++ __home__
+    + `vimrc` : vim configuration.
+    + `bashrc`: bash configuration
+    + `screenrc`: screen configuration
+    + `zshrc`:  zsh shell configuration
+    + `Xinitrc`: the startup configuration for X
+    + `Xdefaults`: the URxvt configuration
 
-fop
----
-the fop configuration for Chinese.
-
++ __fop__: the fop configuration for Chinese.
++ __dblatex__: asciidoc using dblatex

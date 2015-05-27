@@ -88,7 +88,7 @@ set si              "Smart indet
 set cindent         "C-style indenting
 set wrap            "Wrap line
 set so=3            "Set 7 lines to the curors - when moving vertical..
-set wildmenu        "Turn on WiLd menu 启用匹配列表
+set wildmenu        "Turn on WiLd menu 
 set ruler           "Always show current position
 set cmdheight=2     "The commandbar is 2 high
 set nu              "Show line number
@@ -582,7 +582,7 @@ noremap <Leader>m :%s/\r//g<CR>
 map <F2> :%s/s*$//g<cr>:noh<cr>''
 
 
-"--数据递增函数
+"-- inc function
 let g:I=0
 function! INC(increment)
 	let g:I =g:I + a:increment
