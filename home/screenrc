@@ -162,3 +162,5 @@ defautonuke on
 hardstatus on
 
 shell /bin/zsh
+
+term xterm 
