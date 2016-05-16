@@ -12,7 +12,8 @@ export LD_LIBRARY_PATH
 export LIBRARY_PATH
 ## <-----------------------------------------<----------
 
-#命令别名
+
+## command alias
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
@@ -37,26 +38,19 @@ alias mp='mplayer'
 
 MANPATH=/usr/share/man
 
-#路径别名 进入相应的路径时只要 cd ~xxx
+#path alias
 hash -d down="/home/violet/Downloads/"
-hash -d src="/home/violet/02_src/"
-hash -d k="/home/violet/02_src/kutil/"
-hash -d ks="/home/violet/02_src/kutil/config/src/"
-hash -d kt="/home/violet/02_src/kutil/config/test/"
-hash -d zs="/home/violet/02_src/ziper/"
-hash -d doc="/home/violet/01_doc/"
-hash -d dropbox="/home/violet/03_myfile/Dropbox/"
 
 
 
-#普通命令提示符，在控制台下可以正常显示，如需使用取消注释，并把底部有关提示符的语句注释掉
+#prompt config
 ##RPROMPT='%/'
 PROMPT='%{[36m%}%n%{[35m%}@%{[34m%}%M %{[33m%}%D %T  %{[32m%}%/ 
 %{[31m%}>> %{[m%}'
 
 PATH=$PATH:/home/violet/20_soft/
 
-#关于历史纪录的配置
+#history
 # number of lines kept in history
 export HISTSIZE=10000
 # # number of lines saved in the history after logout
@@ -69,16 +63,15 @@ setopt INC_APPEND_HISTORY
 #Disable core dumps
 limit coredumpsize 0
 
-#Emacs风格键绑定
-#bindkey -e
+# vim style
 bindkey -v
-#设置DEL键为向后删除
+
+#setup 'del'
 bindkey "\e[3~" delete-char
 
-#以下字符视为单词的一部分
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>'
 
-#自动补全功能
+#auto completion
 setopt AUTO_LIST
 setopt AUTO_MENU
 setopt MENU_COMPLETE
@@ -106,7 +99,7 @@ zstyle ':completion::complete:*' '\\'
 zstyle ':completion:*:*:*:default' menu yes select
 zstyle ':completion:*:*:default' force-list always
 
-# GNU Colors 需要/etc/DIR_COLORS文件 否则自动补全时候选菜单中的选项不能彩色显示
+# colors config
 if [ -f $HOME/.dir_colors ]; then
     eval $(dircolors -b $HOME/.dir_colors)
 else
@@ -137,7 +130,7 @@ zstyle ':completion:*:warnings' format $'\e[01;31m -- No Matches Found --\e[0m'
 
 export SCREENDIR=$HOME/.screen
 
-#效果超炫的提示符，如需要禁用，注释下面配置   
+#
 function precmd {
     
     local TERMWIDTH
@@ -294,3 +287,4 @@ $PR_CYAN$PR_SHIFT_IN$PR_HBAR$PR_SHIFT_OUT$PR_NO_COLOUR '
 }
 
 #setprompt
+#
