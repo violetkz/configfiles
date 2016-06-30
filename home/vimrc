@@ -546,6 +546,10 @@ endif
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'fholgado/minibufexpl.vim'
+
+Plugin 'a.vim'
+    
 Plugin 'Valloric/YouCompleteMe'
 
 " The following are examples of different formats supported.
@@ -557,3 +561,18 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+"
+
+""Don't show preview window
+"set previewheight=4
+set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+"let g:ycm_autoclose_preview_window_after_completion = 1
+
+let g:ycm_confirm_extra_conf = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:ycm_filetype_specific_completion_to_disable = {'text':1, 'help':1, 'gitcommit':1}
+let g:ycm_complete_in_comments = 1
+let g:ycm_key_invoke_completion = '<S-Space>'
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 0
