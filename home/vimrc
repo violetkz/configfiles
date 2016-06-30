@@ -1,48 +1,43 @@
-﻿"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Ver: 0.07              2008-04-08 13:32:32 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => system
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+﻿
+" =============================================================================
+"                   Config file for my VIM 
+" =============================================================================
+
 if has("win32")
-	set gfn=Lucida\ Console:h11.5:w6
-	set gfw=Simsun\ (Founder\ Extended):h11.5:w6
-	behave mswin
-	colorscheme asu1dark
-	map <F3>  :set gfw=MS\ Gothic:h11<CR>
-	map <F4>  :set gfw=Simsun\ (Founder\ Extended):h12:w6<CR>
+    behave mswin
     lang mes en_gb.utf-8
 endif 
 
 if has("unix")
     lang mes C
+endif
 
-    if has("gui_running")
-        set guioptions-=a
-        set guioptions-=T
-        "set lines=85
-        "et columns=105
-        "set guifont=Monospace\ 10.5
-        "set guifontwide=pmingliu\ 11.6
-        set guifont=Lucida\ Console\ 10
-        "set guifontwide=nsimsun\ 10
-        set guifontwide=WenQuanYi\ Micro\ Hei\ Mono\ 10
-        "set gfn=Monospace\ 10
-        "colorscheme borland
-        colorscheme desert
-        map <F5>  :set gfn=Courier\ New\ 10<CR>
-    else
-        "colorscheme blue
-        colorscheme default
+" the setting for GUI
+if has("gui_running")
+    set guioptions-=a  
+    set guioptions-=T
 
+    set lines=46
+    set columns=105
+
+    if has("win32") 
+        set gfn=Courier_New:h11
+        set gfn=Lucida_Console:h11
     endif
-endif 
+
+    if has("unix")
+        set gfn=Lucida\ Console\ 10
+    endif
+
+    set langmenu=en_gb.utf-8 "set menu language with en
+endif
+
 
 
 syntax on                   "Enable syntax hl
 filetype plugin on
 filetype indent on
 
-set langmenu=en_gb.utf-8
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese
 
@@ -112,8 +107,10 @@ set hlsearch         "Highlight search thing
 "use the chinese help docment after installed it.
 set rtp+=/usr/share/vim/vimfiles 
 if version >= 603
-	set helplang=cn
+    set helplang=cn
 endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM Generic userinterface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -193,12 +190,12 @@ nmap <leader>fu :se ff=unix<cr>
 """"""""""""""""""""""""""""""
 " => Statusline
 """"""""""""""""""""""""""""""
-"Always hide the statusline"总是显示状态行
+"Always hide the statusline
 set laststatus=2
 
 function! CurDir()
-	let curdir = substitute(getcwd(), '/home/violet/', "~/", "g")
-	return curdir
+    let curdir = substitute(getcwd(), '/home/violet/', "~/", "g")
+    return curdir
 endfunction
 
 "Format the statusline
@@ -210,28 +207,6 @@ set statusline+=%{&fileencoding}, " encoding
 set statusline+=%{&fileformat}] " file format
 set statusline+=\ CWD:%r%{CurDir()}%h
 set statusline+=\ Pos:%l-%c[%L]
-
-""""""""""""""""""""""""""""""
-" => Visual
-""""""""""""""""""""""""""""""
-" From an idea by Michael Naumann
-"function! VisualSearch(direction) range
-"	let l:saved_reg = @"
-"	execute "normal! vgvy"
-"	let l:pattern = escape(@", '\/.*$^~[]')
-"	let l:pattern = substitute(l:pattern, " $", "", "")
-"	if a:direction == 'b'
-"		execute "normal ?" . l:pattern . "^M"
-"	else
-"		execute "normal /" . l:pattern . "^M"
-"	endif
-"	let @/ = l:pattern
-"endfunction
-"
-""Basically you press * or # to search for the current selection !! Really useful
-"vnoremap <silent> * :call VisualSearch('f')<CR>
-"vnoremap <silent> # :call VisualSearch('b')<CR>
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -278,22 +253,12 @@ vnoremap $$ <esc>`>a"<esc>`<i"<esc>
 vnoremap $q <esc>`>a'<esc>`<i'<esc>
 vnoremap $w <esc>`>a"<esc>`<i"<esc>
 
-"Map auto complete of (, ", ', [
-"http://www.vim.org/tips/tip.php?tip_id=153
-"自动补齐括号
-"
-"ino ( ()<esc>:let leavechar=")"<cr>i
-"ino { {}<esc>:let leavechar="}"<cr>i
-"ino $q ''<esc>:let leavechar="'"<cr>i
-"ino $w ""<esc>:let leavechar='"'<cr>i
-"imap <c-l> <esc>:exec "normal f" . leavechar<cr>a
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General Abbrev
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Comment for C like language
 if has("autocmd")
-	au BufNewFile,BufRead *.h,*.cpp,*.c,*.hpp ino $c /**<cr> **/<esc>O
+    au BufNewFile,BufRead *.h,*.cpp,*.c,*.hpp ino $c /**<cr> **/<esc>O
 endif
 
 "My information
@@ -316,29 +281,29 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " => Command-line config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 func! Cwd()
-	let cwd = getcwd()
-	return "e " . cwd 
+    let cwd = getcwd()
+    return "e " . cwd 
 endfunc
 
 func! DeleteTillSlash()
-	let g:cmd = getcmdline()
-	if has("unix")
-		let g:cmd_edited = substitute(g:cmd, "\(.*[/]\).*", "\1", "")
-	else
-		let g:cmd_edited = substitute(g:cmd, "\(.*[\\]\).*", "\1", "")
-	endif
-	if g:cmd == g:cmd_edited
-		if has("unix")
-			let g:cmd_edited = substitute(g:cmd, "\(.*[/]\).*/", "\1", "")
-		else
-			let g:cmd_edited = substitute(g:cmd, "\(.*[\\]\).*[\\]", "\1", "")
-		endif
-	endif 
-	return g:cmd_edited
+    let g:cmd = getcmdline()
+    if has("unix")
+        let g:cmd_edited = substitute(g:cmd, "\(.*[/]\).*", "\1", "")
+    else
+        let g:cmd_edited = substitute(g:cmd, "\(.*[\\]\).*", "\1", "")
+    endif
+    if g:cmd == g:cmd_edited
+        if has("unix")
+            let g:cmd_edited = substitute(g:cmd, "\(.*[/]\).*/", "\1", "")
+        else
+            let g:cmd_edited = substitute(g:cmd, "\(.*[\\]\).*[\\]", "\1", "")
+        endif
+    endif 
+    return g:cmd_edited
 endfunc
 
 func! CurrentFileDir(cmd)
-	return a:cmd . " " . expand("%:p:h") . "/"
+    return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
 cno $q <C->eDeleteTillSlash()<cr>
@@ -372,22 +337,22 @@ map <F9> ggVGg?
 command! Bclose call <SID>BufcloseCloseIt()
 
 function! <SID>BufcloseCloseIt()
-	let l:currentBufNum = bufnr("%")
-	let l:alternateBufNum = bufnr("#")
+    let l:currentBufNum = bufnr("%")
+    let l:alternateBufNum = bufnr("#")
 
-	if buflisted(l:alternateBufNum)
-		buffer #
-	else
-		bnext
-	endif
+    if buflisted(l:alternateBufNum)
+        buffer #
+    else
+        bnext
+    endif
 
-	if bufnr("%") == l:currentBufNum
-		new
-	endif
+    if bufnr("%") == l:currentBufNum
+        new
+    endif
 
-	if buflisted(l:currentBufNum)
-		execute "bdelete! ".l:currentBufNum
-	endif
+    if buflisted(l:currentBufNum)
+        execute "bdelete! ".l:currentBufNum
+    endif
 endfunction
 
 
@@ -432,10 +397,10 @@ endif
 """"""""""""""""""""""""""""""
 " => Minibuffer
 """"""""""""""""""""""""""""""
-let g:miniBufExplMaxSize = 0 "以水平窗口显示
+let g:miniBufExplMaxSize = 0 "horizontal window
 let g:miniBufExplSplitToEdge = 0
 let g:miniBufExplModSelTarget = 1
-let g:miniBufExplorerMoreThanOne = 2 "在有4个Buffer时，显示minibuffer窗口
+let g:miniBufExplorerMoreThanOne = 2 "show the window while > 4 buffers.
 let g:miniBufExplModSelTarget = 0 
 let g:miniBufExplUseSingleClick = 1
 let g:miniBufExplMapWindowNavVim = 1
@@ -452,121 +417,75 @@ let Tlist_Sort_Type = "name"
 let Tlist_Show_Menu = 1
 map <leader>t :Tlist<cr>
 
-""""""""""""""""""""""""""""""
-" => omnicppcomplete
-""""""""""""""""""""""""""""""
-"For STL.
-let OmniCpp_DefaultNamespaces=["std","_GLIBCXX_STD"] 
-"不显示preview窗口
-set completeopt-=preview 
-"=========================END
 
 """"""""""""""""""""""""""""""
 " => VIM
 """"""""""""""""""""""""""""""
 if has("autocmd")
-	au BufRead,BufNew *.vim map <buffer> <leader><space> :w!<cr>:source %<cr>
+    au BufRead,BufNew *.vim map <buffer> <leader><space> :w!<cr>:source %<cr>
 endif
 
 """"""""""""""""""""""""""""""
 " => CPP
 """"""""""""""""""""""""""""""
 if has("win32")
-au BufNewFile,BufRead *.cpp,*.h,*.c,*.cxx,*.hpp set makeprg=C:\\MingGW\\bin\\mingw32-make.exe
+    au BufNewFile,BufRead *.cpp,*.h,*.c,*.cxx,*.hpp set makeprg=C:\\MingGW\\bin\\mingw32-make.exe
 endif
 au BufNewFile,BufRead *.cpp,*.h,*.c,*.cxx,*.hpp set errorformat=%f:%l:\%m
 
 
-""""""""""""""""""""""""""""""
-" => Python section
-""""""""""""""""""""""""""""""
-"Run the current buffer in python - ie. on leader+space
-"au BufNewFile,BufRead *.py so ~/vim_local/syntax/python.vim
-"au BufNewFile,BufRead *.py map <buffer> <leader><space> :w!<cr>:!python %<cr>
-"au BufNewFile,BufRead *.py so ~/vim_local/plugin/python_fold.vim
-
-"Set some bindings up for 'compile' of python
-"au BufNewFile,BufRead *.py set makeprg=python\ -c\ \"import\ py_compile,sys;sys.stderr=sys.stdout;py_compile.compile(r'%')\"
-if has("win32")
-    au BufNewFile,BufRead *.py set makeprg=C:\\Python25\\python\ % 
-else
-    au BufNewFile,BufRead *.py set makeprg=python\ % 
-endif
-"au BufNewFile,BufRead *.py set efm=%C\ %.%#,%A\ File\ "%f"\, line %l%.%#,%Z%[%^ ]%\@=%m
-au BufNewFile,BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-au BufNewFile,BufRead *.py nmap <buffer> <F8> :w!<cr>:make<cr>:cl<cr>
-
-""Python iMap
-"au BufNewFile,BufRead *.py set cindent
-"au BufNewFile,BufRead *.py ino <buffer> $r return 
-"au BufNewFile,BufRead *.py ino <buffer> $s self 
-"au BufNewFile,BufRead *.py ino <buffer> $c ##<cr>#<space><cr>#<esc>kla
-"au BufNewFile,BufRead *.py ino <buffer> $i import 
-"au BufNewFile,BufRead *.py ino <buffer> $p print 
-"au BufNewFile,BufRead *.py ino <buffer> $d """<cr>"""<esc>O
-
-"Run in the Python interpreter
-function! Python_Eval_VSplit() range
- let src = tempname()
- let dst = tempname()
- execute ": " . a:firstline . "," . a:lastline . "w " . src
- execute ":!python " . src . " > " . dst
- execute ":pedit! " . dst
-endfunction
-au BufNewFile,BufRead *.py vmap <F7> :call Python_Eval_VSplit()<cr> 
-
 """""""""""""""""""""""""""""""
-" =>set abbreviaton 设定缩写
+" =>set abbreviaton 
 """""""""""""""""""""""""""""""
 if has("eval") && has("autocmd")
-	fun! <SID>abbrev_cpp()
-		iabbrev <buffer> cci const_iterator
-		iabbrev <buffer> ccl cla
-		iabbrev <buffer> cco const
-		iabbrev <buffer> cdb \bug
-		iabbrev <buffer> cde \throw
-		iabbrev <buffer> cdf /** \file<CR><CR>/<Up>
-		iabbrev <buffer> cdg \ingroup
-		iabbrev <buffer> cdn /** \namespace<CR><CR>/<Up>
-		iabbrev <buffer> cdp \param
-		iabbrev <buffer> cdt \test
-		iabbrev <buffer> cdx /**<CR><CR>/<Up>
-		iabbrev <buffer> cit iterator
-		iabbrev <buffer> cns namespace
-		iabbrev <buffer> cpr protected
-		iabbrev <buffer> cpu public
-		iabbrev <buffer> cpv private
-		iabbrev <buffer> csl std::list
-		iabbrev <buffer> csm std::map
-		iabbrev <buffer> css std::string
-		iabbrev <buffer> csv std::vector
-		iabbrev <buffer> cty typedef
-		iabbrev <buffer> cun using namespace
-		iabbrev <buffer> ckk {<CR>}<Up><Tab>
-		iabbrev <buffer> cvi virtual
-		iabbrev <buffer> #i #include
-		iabbrev <buffer> #d #define
+    fun! <SID>abbrev_cpp()
+        iabbrev <buffer> cci const_iterator
+        iabbrev <buffer> ccl cla
+        iabbrev <buffer> cco const
+        iabbrev <buffer> cdb \bug
+        iabbrev <buffer> cde \throw
+        iabbrev <buffer> cdf /** \file<CR><CR>/<Up>
+        iabbrev <buffer> cdg \ingroup
+        iabbrev <buffer> cdn /** \namespace<CR><CR>/<Up>
+        iabbrev <buffer> cdp \param
+        iabbrev <buffer> cdt \test
+        iabbrev <buffer> cdx /**<CR><CR>/<Up>
+        iabbrev <buffer> cit iterator
+        iabbrev <buffer> cns namespace
+        iabbrev <buffer> cpr protected
+        iabbrev <buffer> cpu public
+        iabbrev <buffer> cpv private
+        iabbrev <buffer> csl std::list
+        iabbrev <buffer> csm std::map
+        iabbrev <buffer> css std::string
+        iabbrev <buffer> csv std::vector
+        iabbrev <buffer> cty typedef
+        iabbrev <buffer> cun using namespace
+        iabbrev <buffer> ckk {<CR>}<Up><Tab>
+        iabbrev <buffer> cvi virtual
+        iabbrev <buffer> #i #include
+        iabbrev <buffer> #d #define
         inoremap #m <esc>:r $HOME/.vim/template/c.txt<CR>
-	endfun
-
-    fun! <SID>abbrev_shell()
-		iabbrev <buffer> #! #!/bin/env bash<esc>o<esc>cc<esc>
     endfun
 
-	fun! <SID>abbrev_python()
-		iabbrev <buffer> #! #!/bin/env python<CR>#-*- coding:utf-8 -*-<CR><CR>
-		iabbrev <buffer> #i import 
-		iabbrev <buffer> #p print
-		iabbrev <buffer> #m if __name__=="__main__":
+    fun! <SID>abbrev_shell()
+        iabbrev <buffer> #! #!/bin/env bash<esc>o<esc>cc<esc>
+    endfun
 
-	endfun
+    fun! <SID>abbrev_python()
+        iabbrev <buffer> #! #!/bin/env python<CR>#-*- coding:utf-8 -*-<CR><CR>
+        iabbrev <buffer> #i import 
+        iabbrev <buffer> #p print
+        iabbrev <buffer> #m if __name__=="__main__":
 
-	augroup abbreviation
-		autocmd!
-		autocmd FileType cpp,c :call <SID>abbrev_cpp()
-		autocmd FileType python :call <SID>abbrev_python()
-		autocmd FileType sh :call <SID>abbrev_shell()
-	augroup END
+    endfun
+
+    augroup abbreviation
+        autocmd!
+        autocmd FileType cpp,c :call <SID>abbrev_cpp()
+        autocmd FileType python :call <SID>abbrev_python()
+        autocmd FileType sh :call <SID>abbrev_shell()
+    augroup END
 endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -585,27 +504,56 @@ map <F2> :%s/s*$//g<cr>:noh<cr>''
 "-- inc function
 let g:I=0
 function! INC(increment)
-	let g:I =g:I + a:increment
-	return g:I
+    let g:I =g:I + a:increment
+    return g:I
 endfunction 
 
 if has("win32")
-    " cscope 设定.see :h cscope
+    " cscope setup .see :h cscope
     if has("cscope")
-            set csprg=cscope
-            set csto=0
-            set cst
-            set nocsverb
-            " add any database in current directory
-            if filereadable("cscope.out") && !has("gui_running")
-                cs add cscope.out
+        set csprg=cscope
+        set csto=0
+        set cst
+        set nocsverb
+        " add any database in current directory
+        if filereadable("cscope.out") && !has("gui_running")
+            cs add cscope.out
             " else add database pointed to by environment
-            elseif filereadable("cscope.out")
-                map <leader>ca :cs add cscope.out<CR>
-            endif
-            set csverb
+        elseif filereadable("cscope.out")
+            map <leader>ca :cs add cscope.out<CR>
+        endif
+        set csverb
     endif
 else
     set cst
     set csverb
 endif
+
+
+
+" =============================================================
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+if has("Win32")
+    set rtp+=$VIM/vimfiles/bundle/Vundle.vim
+    call vundle#begin('$VIM/vimfiles/bundle')
+endif
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'Valloric/YouCompleteMe'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
