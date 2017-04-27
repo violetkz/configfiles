@@ -4,9 +4,16 @@
 " =============================================================================
 
 if has("win32")
-    behave mswin
+    "behave mswin
     lang mes en_gb.utf-8
+    "In my Win10, the following setting don't work. shit ~~~"
+    "       lang mes en
+    "       lang en
+    "So, I copy and overwrite the *.mo file from $VIM/lang/en_GB to $VIM/lang/zh_cn* "
+    "or may delete the folders under $VIM/lang/zh_cn* "
+    
 endif 
+
 
 if has("unix")
     lang mes C
@@ -21,8 +28,9 @@ if has("gui_running")
     set columns=105
 
     if has("win32") 
-        set gfn=Courier_New:h11
-        set gfn=Lucida_Console:h11
+        "set gfn=Courier_New:h12:w7
+        "set gfn=Lucida_Console:h11:w6.3
+        set gfn=Lucida_Console:h11:w6.3
     endif
 
     if has("unix")
@@ -31,6 +39,20 @@ if has("gui_running")
 
     set langmenu=en_gb.utf-8 "set menu language with en
 endif
+
+"according to different file type to set different color scheme.
+au BufRead,BufNew,BufAdd,BufEnter *.adoc,*.asciidoc colo Baycomb
+"au FileType asciidoc colo Baycomb
+au BufRead,BufNew,Bufadd,BufEnter *.c,*.cpp,*.h,*.hpp colo vc
+"au BufRead,BufNew,Bufadd,BufEnter *.py colo molokai
+"au BufRead,BufNew,Bufadd,BufEnter *.py set gfn=Courier_New:h11.6
+au BufRead,BufNew,Bufadd *.py colo Nuvola 
+au BufRead,BufNew,Bufadd,BufEnter *.xjob set ft=xjob
+au FileType python colo Nuvola 
+"au FileType python set gfn=Courier_New:h11.6
+"au BufRead,BufNew,Bufadd *.py colo eclipse 
+"au FileType c,cpp colo vc
+au FileType None  colo default
 
 
 
@@ -79,11 +101,11 @@ set tw=500
 
 " => Indent
 set ai              "Auto indent
-set si              "Smart indet
-set cindent         "C-style indenting
+"set si              "Smart indent
+set cindent              "Smart indent
 set wrap            "Wrap line
 set so=3            "Set 7 lines to the curors - when moving vertical..
-set wildmenu        "Turn on WiLd menu 
+set wildmenu        "Turn on Wild menu 
 set ruler           "Always show current position
 set cmdheight=2     "The commandbar is 2 high
 set nu              "Show line number
@@ -91,15 +113,19 @@ set nu              "Show line number
 set hid             "Change buffer - without saving
 set backspace=eol,start,indent   "Set backspace :help i_backspcing
 set whichwrap+=<,>,h,l           "Bbackspace and cursor keys wrap to
-set smartcase        "Ignore case when searching
-set incsearch
 set magic            "Set magic on
 set noerrorbells     "No sound on errors.
-set novisualbell
+set novisualbell    
 set t_vb=
 set showmatch        "show matching bracet
 set mat=4            "How many tenths of a second to blink
 set hlsearch         "Highlight search thing
+set cm=blowfish      "set crpto method as blowfish
+
+" => search options
+set ignorecase      "Ignore case when searching
+set smartcase       "Override the 'ignorecase' option if search pattern contains upper characters
+set incsearch
 
 "set switchbuf=usetab  "
 "set stal=2            " 1. always show talbar
@@ -531,6 +557,16 @@ endif
 
 
 
+function! IsNeedCompleteFileType()
+    let file_suffix = expand('%:e')
+    let need_support_comeplete_list = ['c', 'cpp', 'py', 'h', 'cxx', 'hpp']
+    "let need_support_comeplete_list = ['c', 'cpp', 'h', 'cxx', 'hpp']
+    if index(need_support_comeplete_list, file_suffix) != -1
+        return 1
+    endif
+    return 0
+endfunction
+
 " =============================================================
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -549,8 +585,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'fholgado/minibufexpl.vim'
 
 Plugin 'a.vim'
-    
-Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'skywind3000/asyncrun.vim'
+
+if IsNeedCompleteFileType() == 1
+    Plugin 'Valloric/YouCompleteMe'
+endif
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -571,8 +611,9 @@ let g:ycm_add_preview_to_completeopt = 0
 
 let g:ycm_confirm_extra_conf = 0
 let g:syntastic_always_populate_loc_list = 1
-let g:ycm_filetype_specific_completion_to_disable = {'text':1, 'help':1, 'gitcommit':1}
+let g:ycm_filetype_specific_completion_to_disable = {'text':1, 'help':1, 'gitcommit':1, 'none':1}
 let g:ycm_complete_in_comments = 1
 let g:ycm_key_invoke_completion = '<S-Space>'
 let g:ycm_show_diagnostics_ui = 1
 let g:ycm_enable_diagnostic_signs = 0
+
