@@ -13,3 +13,4 @@ Configuration Collection
 
 + __fop__: the fop configuration for Chinese.
 + __dblatex__: asciidoc using dblatex
++ __awesome-cv__: a swesome cv template class of latex.
